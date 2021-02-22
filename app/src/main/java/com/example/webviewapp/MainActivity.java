@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private WebView mywebView;
+    private long pressedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +33,21 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         if(mywebView.canGoBack()) {
             mywebView.goBack();
-        }
-        else{
+        }else if(pressedTime + 2000 > System.currentTimeMillis()){
             super.onBackPressed();
+            finish();
+
 
         }
+        else{
+
+            Toast.makeText(MainActivity.this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
+
+        }
+        pressedTime = System.currentTimeMillis();
+
     }
+
 
    // private class MyBrowser extends WebViewClient {
     //    @Override
